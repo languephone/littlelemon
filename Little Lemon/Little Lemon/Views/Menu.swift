@@ -12,10 +12,20 @@ struct Menu: View {
     @State var searchText = ""
 
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Text("Little Lemon")
+                .font(.largeTitle)
             Text("London")
-            Text("Restaurant app description")
+                .font(.title)
+            HStack {
+                Text("We are a modern take on Mediterranean food in the heart of London's financial district focused on traditional recipies served with a modern twist")
+                Image("profile-image-placeholder")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 150, height: 150)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+            }
+            .padding(.horizontal, 20)
             TextField("Search menu", text: $searchText)
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
