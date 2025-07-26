@@ -13,14 +13,36 @@ struct Menu: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            Header()
-            Hero()
             TextField("Search menu", text: $searchText)
+                .padding(.horizontal)
+            Text("ORDER FOR DELIVERY!")
+                .padding(.horizontal)
+            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) {
+                (dishes: [Dish]) in
+                ScrollView(.horizontal) {
+                    HStack {
+                        ForEach(dishes) { dish in
+                            Button(dish.category!) {}
+                                .buttonStyle(.bordered)
+                        }
+                    }
+                }
+            }
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes) { dish in
                         HStack {
-                            Text("\(dish.title!) \(dish.price!)")
+                            VStack(alignment: .leading) {
+                                Text(dish.title!)
+                                    .font(.headline)
+                                    .fontWeight(.medium)
+                                Text(dish.dishDescription!)
+                                    .fontWeight(.light)
+                                    .font(.caption)
+                                Text("$\(dish.price!).99")
+                                    .font(.caption)
+                            }
+                            Spacer()
                             AsyncImage(url: URL(string: dish.image!)) { image in
                                 image
                                     .resizable()
@@ -32,6 +54,7 @@ struct Menu: View {
                         }
                     }
                 }
+                .listStyle(.plain)
             }
         }.onAppear {
             getMenuData()
@@ -50,8 +73,10 @@ struct Menu: View {
                     for dish in menuList.menu {
                         let newDish = Dish(context: viewContext)
                         newDish.title = dish.title
+                        newDish.dishDescription = dish.dishDescription
                         newDish.price = dish.price
                         newDish.image = dish.image
+                        newDish.category = dish.category
                     }
                     try? viewContext.save()
                 } catch {

@@ -12,11 +12,15 @@ struct Home: View {
 
     var body: some View {
         TabView {
-            Menu()
-                .environment(\.managedObjectContext, persistence.container.viewContext)
-                .tabItem {
-                    Label("Menu", systemImage: "list.dash")
-                }
+            VStack {
+                Header()
+                Hero()
+                Menu()
+            }
+            .environment(\.managedObjectContext, persistence.container.viewContext)
+            .tabItem {
+                Label("Menu", systemImage: "list.dash")
+            }
             UserProfile()
                 .tabItem {
                     Label("Profile", systemImage: "square.and.pencil")
