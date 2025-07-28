@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct Menu: View {
     @Environment(\.managedObjectContext) private var viewContext
     @State var searchText = ""
+    let categories = ["Starters", "Mains", "Desserts", "Drinks"]
 
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,17 +19,13 @@ struct Menu: View {
                 .padding(.horizontal)
             Text("ORDER FOR DELIVERY!")
                 .padding(.horizontal)
-            FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) {
-                (dishes: [Dish]) in
-                ScrollView(.horizontal) {
-                    HStack {
-                        ForEach(dishes) { dish in
-                            Button(dish.category!) {}
-                                .buttonStyle(.bordered)
-                        }
-                    }
+            HStack {
+                ForEach(categories, id: \.self) { category in
+                    Button(category) {}
+                        .buttonStyle(.bordered)
                 }
             }
+            .frame(maxWidth: .infinity)
             FetchedObjects(predicate: buildPredicate(), sortDescriptors: buildSortDescriptors()) { (dishes: [Dish]) in
                 List {
                     ForEach(dishes) { dish in
