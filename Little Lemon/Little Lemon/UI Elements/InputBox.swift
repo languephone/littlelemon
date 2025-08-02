@@ -15,7 +15,7 @@ struct InputBox: View {
         VStack(alignment: .leading) {
             Text(title)
                 .font(.callout)
-            TextField("First name", text: $text)
+            TextField(title, text: $text)
                 .padding(12)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
