@@ -14,6 +14,7 @@ struct UserProfile: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
+                Header()
                 Text("Personal information")
                     .font(.title2)
                 HStack(spacing: 20) {
@@ -39,14 +40,17 @@ struct UserProfile: View {
                 Toggle("Newsletter", isOn: $viewModel.user.newsletter)
                 
                 // Save/Discard/Logout
-                Button("Log out", action: {})
-                .frame(maxWidth: .infinity)
-                .padding(.horizontal, 15)
-                .padding(.vertical, 12)
-                .background(.littleLemonYellow)
-                .foregroundStyle(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(.bottom, 20)
+                Button("Log out", action: {
+                    viewModel.user.loggedIn = false
+                    viewModel.saveUser()
+                })
+                    .frame(maxWidth: .infinity)
+                    .padding(.horizontal, 15)
+                    .padding(.vertical, 12)
+                    .background(.littleLemonYellow)
+                    .foregroundStyle(.white)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding(.bottom, 20)
                 
                 HStack(spacing: 15) {
                     lemonButton(buttonText: "Discard changes", buttonColor: .littleLemonGreen, invert: true, action: {})

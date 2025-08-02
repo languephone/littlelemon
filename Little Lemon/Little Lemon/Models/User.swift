@@ -20,7 +20,7 @@ class User: ObservableObject {
     init(firstName: String = "",
          lastName: String = "",
          email: String = "",
-         loggedIn: Bool = true,
+         loggedIn: Bool = false,
          orderStatuses: Bool = true,
          passwordChanges: Bool = true,
          specialOffers: Bool = true,
