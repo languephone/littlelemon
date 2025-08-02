@@ -12,7 +12,7 @@ struct Home: View {
 
     var body: some View {
         TabView {
-            VStack {
+            VStack(spacing: 0) {
                 Header()
                 Hero()
                 Menu()

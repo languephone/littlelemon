@@ -15,9 +15,16 @@ struct Menu: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            TextField("Search menu", text: $searchText)
-                .padding(.horizontal)
-            Text("ORDER FOR DELIVERY!")
+            ZStack {
+                Color(uiColor: .littleLemonGreen)
+                TextField("Search menu", text: $searchText)
+                    .padding(.vertical, 8)
+                    .padding(.horizontal)
+                    .background(.white)
+                    .padding()
+            }
+            .frame(height: 80)
+            Text("Order for Delivery")
                 .padding(.horizontal)
             HStack {
                 ForEach(categories, id: \.self) { category in
