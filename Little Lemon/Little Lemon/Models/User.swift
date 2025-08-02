@@ -8,16 +8,23 @@
 import Foundation
 
 class User: ObservableObject {
-    @Published var firstName = ""
-    @Published var lastName = ""
-    @Published var email = ""
-    @Published var loggedIn = false
-    @Published var orderStatuses = true
-    @Published var passwordChanges = true
-    @Published var specialOffers = true
-    @Published var newsletter = true
+    @Published var firstName: String
+    @Published var lastName: String
+    @Published var email: String
+    @Published var loggedIn: Bool
+    @Published var orderStatuses: Bool
+    @Published var passwordChanges: Bool
+    @Published var specialOffers: Bool
+    @Published var newsletter: Bool
 
-    init(firstName: String = "", lastName: String = "", email: String = "", loggedIn: Bool = false, orderStatuses: Bool = true, passwordChanges: Bool = true, specialOffers: Bool = true, newsletter: Bool = true) {
+    init(firstName: String = "",
+         lastName: String = "",
+         email: String = "",
+         loggedIn: Bool = true,
+         orderStatuses: Bool = true,
+         passwordChanges: Bool = true,
+         specialOffers: Bool = true,
+         newsletter: Bool = true) {
         self.firstName = firstName
         self.lastName = lastName
         self.email = email
