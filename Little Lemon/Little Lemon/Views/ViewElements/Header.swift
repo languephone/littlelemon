@@ -16,8 +16,11 @@ struct Header: View {
                 .padding(.horizontal, 80)
             HStack {
                 Spacer()
-                Image(systemName: "person")
-                    .font(.largeTitle)
+                Image("profile-image")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 50, height: 50)
+                    .clipShape(.circle)
             }
         }
         .padding(.horizontal, 30)

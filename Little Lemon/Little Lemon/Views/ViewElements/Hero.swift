@@ -26,7 +26,7 @@ struct Hero: View {
                     Text("We are a modern take on Mediterranean food in the heart of London's financial district, focused on traditional recipies served with a modern twist.")
                         .foregroundStyle(.white)
                 }
-                    Image("profile-image-placeholder")
+                    Image("food-image")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 150, height: 150)
