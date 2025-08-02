@@ -22,11 +22,15 @@ struct Onboarding3: View {
                     UserDefaults.standard.set(user.lastName, forKey: "kLastName")
                     UserDefaults.standard.set(user.email, forKey: "kEmail")
                     UserDefaults.standard.set(user.loggedIn, forKey: "kLoggedIn")
+                    UserDefaults.standard.set(user.orderStatuses, forKey: "kOrderStatuses")
+                    UserDefaults.standard.set(user.passwordChanges, forKey: "kPasswordChanges")
+                    UserDefaults.standard.set(user.specialOffers, forKey: "kSpecialOffers")
+                    UserDefaults.standard.set(user.newsletter, forKey: "kNewsletter")
                     user.loggedIn = true
                 }
             }
             
-            NavigationLink(destination: Hero(), isActive: $user.loggedIn) {
+            NavigationLink(destination: Home(), isActive: $user.loggedIn) {
                 EmptyView()
             }
         }

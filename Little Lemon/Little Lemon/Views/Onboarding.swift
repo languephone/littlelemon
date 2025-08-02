@@ -14,7 +14,7 @@ struct Onboarding: View {
         NavigationView {
             VStack {
                 Header()
-                NavigationLink(destination: Menu(), isActive: $user.loggedIn) {
+                NavigationLink(destination: Home().navigationBarBackButtonHidden(true), isActive: $user.loggedIn) {
                     EmptyView()
                 }
                 VStack {
