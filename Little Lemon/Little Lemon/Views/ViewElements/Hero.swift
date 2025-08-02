@@ -23,7 +23,7 @@ struct Hero: View {
                         .fontDesign(.serif)
                         .foregroundStyle(.white)
                         .padding(.bottom, 15)
-                    Text("We are a modern take on Mediterranean food in the heart of London's financial district, focused on traditional recipies served with a modern twist.")
+                    Text("We are a modern take on Mediterranean food in the heart of London's financial district, focused on traditional recipes served with a modern twist.")
                         .foregroundStyle(.white)
                 }
                     Image("food-image")
