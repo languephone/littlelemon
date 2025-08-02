@@ -16,22 +16,59 @@ class User: ObservableObject {
     @Published var passwordChanges: Bool
     @Published var specialOffers: Bool
     @Published var newsletter: Bool
+    @Published var loggedOut: Bool
 
-    init(firstName: String = "",
-         lastName: String = "",
-         email: String = "",
-         loggedIn: Bool = false,
-         orderStatuses: Bool = true,
-         passwordChanges: Bool = true,
-         specialOffers: Bool = true,
-         newsletter: Bool = true) {
-        self.firstName = firstName
-        self.lastName = lastName
-        self.email = email
-        self.loggedIn = loggedIn
-        self.orderStatuses = orderStatuses
-        self.passwordChanges = passwordChanges
-        self.specialOffers = specialOffers
-        self.newsletter = newsletter
+    init() {
+        self.firstName = UserDefaults.standard.string(forKey: "kFirstName") ?? ""
+        self.lastName = UserDefaults.standard.string(forKey: "kLastName") ?? ""
+        self.email = UserDefaults.standard.string(forKey: "kEmail") ?? ""
+        self.orderStatuses = UserDefaults.standard.bool(forKey: "kOrderStatuses")
+        self.passwordChanges = UserDefaults.standard.bool(forKey: "kPasswordChanges")
+        self.specialOffers = UserDefaults.standard.bool(forKey: "kSpecialOffers")
+        self.newsletter = UserDefaults.standard.bool(forKey: "kNewsletter")
+        self.loggedIn = UserDefaults.standard.bool(forKey: "kLoggedIn")
+        self.loggedOut = !UserDefaults.standard.bool(forKey: "kLoggedIn")
+    }
+
+    func save() {
+        UserDefaults.standard.set(firstName, forKey: "kFirstName")
+        UserDefaults.standard.set(lastName, forKey: "kLastName")
+        UserDefaults.standard.set(email, forKey: "kEmail")
+        UserDefaults.standard.set(orderStatuses, forKey: "kOrderStatuses")
+        UserDefaults.standard.set(passwordChanges, forKey: "kPasswordChanges")
+        UserDefaults.standard.set(specialOffers, forKey: "kSpecialOffers")
+        UserDefaults.standard.set(newsletter, forKey: "kNewsletter")
+        UserDefaults.standard.set(loggedIn, forKey: "kLoggedIn")
+        UserDefaults.standard.set(!loggedIn, forKey: "kLoggedOut")
+    }
+
+    func isValid() -> Bool {
+        return !firstName.isEmpty &&
+               !lastName.isEmpty &&
+               !email.isEmpty
+    }
+
+    func clearValues() {
+        firstName = ""
+        lastName = ""
+        email = ""
+        orderStatuses = true
+        passwordChanges = true
+        specialOffers = true
+        newsletter = true
+        loggedIn = false
+        loggedOut = true
+    }
+
+    func loadSavedValues() {
+        self.firstName = UserDefaults.standard.string(forKey: "kFirstName") ?? ""
+        self.lastName = UserDefaults.standard.string(forKey: "kLastName") ?? ""
+        self.email = UserDefaults.standard.string(forKey: "kEmail") ?? ""
+        self.orderStatuses = UserDefaults.standard.bool(forKey: "kOrderStatuses")
+        self.passwordChanges = UserDefaults.standard.bool(forKey: "kPasswordChanges")
+        self.specialOffers = UserDefaults.standard.bool(forKey: "kSpecialOffers")
+        self.newsletter = UserDefaults.standard.bool(forKey: "kNewsletter")
+        self.loggedIn = UserDefaults.standard.bool(forKey: "kLoggedIn")
+        self.loggedOut = !UserDefaults.standard.bool(forKey: "kLoggedIn")
     }
 }

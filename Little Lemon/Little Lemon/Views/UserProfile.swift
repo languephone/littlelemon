@@ -8,13 +8,16 @@
 import SwiftUI
 
 struct UserProfile: View {
-    @StateObject var viewModel = UserProfileViewModel()
-    @Environment(\.presentationMode) var presentation
+    @StateObject var user = User()
     
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 Header()
+                NavigationLink(destination: Onboarding().navigationBarBackButtonHidden(true),
+                               isActive: $user.loggedOut) {
+                    EmptyView()
+                }
                 Text("Personal information")
                     .font(.title2)
                 HStack(spacing: 20) {
@@ -27,22 +30,22 @@ struct UserProfile: View {
                     lemonButton(buttonText: "Remove", buttonColor: .littleLemonGreen, invert: true, action: {})
                 }
                 // Info input boxes
-                InputBox(title: "First Name", text: $viewModel.user.firstName)
-                InputBox(title: "Last Name", text: $viewModel.user.lastName)
-                InputBox(title: "Email", text: $viewModel.user.email)
+                InputBox(title: "First Name", text: $user.firstName)
+                InputBox(title: "Last Name", text: $user.lastName)
+                InputBox(title: "Email", text: $user.email)
                 
                 // Toggle buttons
                 Text("Email notifications")
                     .font(.title2)
-                Toggle("Order statuses", isOn: $viewModel.user.orderStatuses)
-                Toggle("Password changes", isOn: $viewModel.user.passwordChanges)
-                Toggle("Special offers", isOn: $viewModel.user.specialOffers)
-                Toggle("Newsletter", isOn: $viewModel.user.newsletter)
+                Toggle("Order statuses", isOn: $user.orderStatuses)
+                Toggle("Password changes", isOn: $user.passwordChanges)
+                Toggle("Special offers", isOn: $user.specialOffers)
+                Toggle("Newsletter", isOn: $user.newsletter)
                 
                 // Save/Discard/Logout
                 Button("Log out", action: {
-                    viewModel.user.loggedIn = false
-                    viewModel.saveUser()
+                    user.clearValues()
+                    user.save()
                 })
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 15)
@@ -53,11 +56,13 @@ struct UserProfile: View {
                     .padding(.bottom, 20)
                 
                 HStack(spacing: 15) {
-                    lemonButton(buttonText: "Discard changes", buttonColor: .littleLemonGreen, invert: true, action: {})
+                    lemonButton(buttonText: "Discard changes", buttonColor: .littleLemonGreen, invert: true, action: {
+                        user.loadSavedValues()
+                    })
                     Spacer()
                     lemonButton(buttonText: "Save changes", buttonColor: .littleLemonGreen, invert: false) {
-                        if (viewModel.isValidUser()) {
-                            viewModel.saveUser()
+                        if (user.isValid()) {
+                            user.save()
                         }
                     }
                 }

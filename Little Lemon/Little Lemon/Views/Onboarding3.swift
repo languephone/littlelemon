@@ -18,15 +18,9 @@ struct Onboarding3: View {
             
             Button("Register") {
                 if (!user.firstName.isEmpty && !user.lastName.isEmpty && !user.email.isEmpty) {
-                    UserDefaults.standard.set(user.firstName, forKey: "kFirstName")
-                    UserDefaults.standard.set(user.lastName, forKey: "kLastName")
-                    UserDefaults.standard.set(user.email, forKey: "kEmail")
-                    UserDefaults.standard.set(user.loggedIn, forKey: "kLoggedIn")
-                    UserDefaults.standard.set(user.orderStatuses, forKey: "kOrderStatuses")
-                    UserDefaults.standard.set(user.passwordChanges, forKey: "kPasswordChanges")
-                    UserDefaults.standard.set(user.specialOffers, forKey: "kSpecialOffers")
-                    UserDefaults.standard.set(user.newsletter, forKey: "kNewsletter")
                     user.loggedIn = true
+                    user.save()
+                    print(user.firstName)
                 }
             }
             
